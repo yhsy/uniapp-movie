@@ -1,5 +1,5 @@
 <template>
-	<view class="">
+	<view class="page">
 		首页
 	</view>
 </template>
