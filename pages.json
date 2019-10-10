@@ -20,5 +20,39 @@
 		"navigationBarTitleText": "NEXT超英预告",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar":{
+		// 文字颜色
+		"color":"#bfbfbf",
+		// 文字选中颜色
+		"selectedColor":"#515151",
+		// 上边框样式
+		"borderStyle":"black",
+		// 背景色
+		"backgroundColor":"#FFFFFF",
+		"list":[
+			{
+				// 跳转页面
+				"pagePath":"pages/index/index",
+				// 文字
+				"text":"首页",
+				// 默认图标
+				"iconPath":"static/tabBarIco/index.png",
+				// 选中图标
+				"selectedIconPath":"static/tabBarIco/index_sel.png"
+			},
+			{
+				"pagePath":"pages/search/search",
+				"text":"搜索",
+				"iconPath":"static/tabBarIco/search.png",
+				"selectedIconPath":"static/tabBarIco/search_sel.png"
+			},
+			{
+				"pagePath":"pages/my/my",
+				"text":"我的",
+				"iconPath":"static/tabBarIco/me.png",
+				"selectedIconPath":"static/tabBarIco/me_sel.png"
+			}
+		]
 	}
 }
