@@ -1,22 +1,116 @@
 <template>
 	<view class="page">
-		<!-- 首页 -->
+		<!-- 轮播图-start -->
 		<swiper class="banner" :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
-			<!-- 		
-				<swiper-item>
-					<image src="../../static/imgs/banner1.jpg" class="banner"></image>
-				</swiper-item>
-				<swiper-item >
-					<image src="../../static/imgs/banner2.jpg" class="banner"></image>
-				</swiper-item>
-				<swiper-item>
-					<image src="../../static/imgs/banner1.jpg" class="banner"></image>
-				</swiper-item> 
-			-->
 			<swiper-item v-for="(item,index) in bList" :key="index">
 				<image :src="item.image" class="banner"></image>
 			</swiper-item>>
 		</swiper>
+		<!-- 轮播图-end -->
+		
+		<!-- 热门超英-start -->
+		<view class="page-block super-hot">
+			<view class="hot-title-wapper">
+				<image src="../../static/imgs/icons/hot.png" class="icon-hot"></image>
+				<view class="hot-title">热门超英</view>
+			</view>
+			
+			<scroll-view scroll-x="true" class="page-block hot-content">
+				<view class="m-poster">
+					<view class="poster-wapper">
+						<image src="../../static/imgs/poster/civilwar.jpg" class="poster-img" ></image>
+						<view class="movie-name">
+							蝙蝠侠蝙蝠侠蝙蝠侠蝙蝠侠
+						</view>
+						<view class="movie-score-wapper">
+							<image src="../../static/imgs/icons/star-yellow.png" class="icon-star"></image>
+							<image src="../../static/imgs/icons/star-yellow.png" class="icon-star"></image>
+							<image src="../../static/imgs/icons/star-yellow.png" class="icon-star"></image>
+							<image src="../../static/imgs/icons/star-yellow.png" class="icon-star"></image>
+							<image src="../../static/imgs/icons/star-yellow.png" class="icon-star"></image>
+							<view class="movie-score">
+								9.1
+							</view>
+						</view>
+					</view>
+				</view>
+				<view class="m-poster">
+					<view class="poster-wapper">
+						<image src="../../static/imgs/poster/civilwar.jpg" class="poster-img" ></image>
+						<view class="movie-name">
+							蝙蝠侠蝙蝠侠蝙蝠侠蝙蝠侠
+						</view>
+						<view class="movie-score-wapper">
+							<image src="../../static/imgs/icons/star-yellow.png" class="icon-star"></image>
+							<image src="../../static/imgs/icons/star-yellow.png" class="icon-star"></image>
+							<image src="../../static/imgs/icons/star-yellow.png" class="icon-star"></image>
+							<image src="../../static/imgs/icons/star-yellow.png" class="icon-star"></image>
+							<image src="../../static/imgs/icons/star-yellow.png" class="icon-star"></image>
+							<view class="movie-score">
+								9.1
+							</view>
+						</view>
+					</view>
+				</view>
+				<view class="m-poster">
+					<view class="poster-wapper">
+						<image src="../../static/imgs/poster/civilwar.jpg" class="poster-img" ></image>
+						<view class="movie-name">
+							蝙蝠侠蝙蝠侠蝙蝠侠蝙蝠侠
+						</view>
+						<view class="movie-score-wapper">
+							<image src="../../static/imgs/icons/star-yellow.png" class="icon-star"></image>
+							<image src="../../static/imgs/icons/star-yellow.png" class="icon-star"></image>
+							<image src="../../static/imgs/icons/star-yellow.png" class="icon-star"></image>
+							<image src="../../static/imgs/icons/star-yellow.png" class="icon-star"></image>
+							<image src="../../static/imgs/icons/star-yellow.png" class="icon-star"></image>
+							<view class="movie-score">
+								9.1
+							</view>
+						</view>
+					</view>
+				</view>
+				<view class="m-poster">
+					<view class="poster-wapper">
+						<image src="../../static/imgs/poster/civilwar.jpg" class="poster-img" ></image>
+						<view class="movie-name">
+							蝙蝠侠蝙蝠侠蝙蝠侠蝙蝠侠
+						</view>
+						<view class="movie-score-wapper">
+							<image src="../../static/imgs/icons/star-yellow.png" class="icon-star"></image>
+							<image src="../../static/imgs/icons/star-yellow.png" class="icon-star"></image>
+							<image src="../../static/imgs/icons/star-yellow.png" class="icon-star"></image>
+							<image src="../../static/imgs/icons/star-yellow.png" class="icon-star"></image>
+							<image src="../../static/imgs/icons/star-yellow.png" class="icon-star"></image>
+							<view class="movie-score">
+								9.1
+							</view>
+						</view>
+					</view>
+				</view>
+				<view class="m-poster">
+					<view class="poster-wapper">
+						<image src="../../static/imgs/poster/civilwar.jpg" class="poster-img" ></image>
+						<view class="movie-name">
+							蝙蝠侠蝙蝠侠蝙蝠侠蝙蝠侠
+						</view>
+						<view class="movie-score-wapper">
+							<image src="../../static/imgs/icons/star-yellow.png" class="icon-star"></image>
+							<image src="../../static/imgs/icons/star-yellow.png" class="icon-star"></image>
+							<image src="../../static/imgs/icons/star-yellow.png" class="icon-star"></image>
+							<image src="../../static/imgs/icons/star-yellow.png" class="icon-star"></image>
+							<image src="../../static/imgs/icons/star-yellow.png" class="icon-star"></image>
+							<view class="movie-score">
+								9.1
+							</view>
+						</view>
+					</view>
+				</view>
+			</scroll-view>
+		</view>
+		<!-- 热门超英-end -->
+		
+		
 	</view>
 </template>
 
