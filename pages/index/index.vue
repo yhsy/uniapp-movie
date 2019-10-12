@@ -54,12 +54,12 @@
 						</view>
 					</view>
 				</view>
-				
-				
 			</scroll-view>
 		</view>
 		<!-- 热门超英-end -->
 		
+		<!-- 使用自定义组件 -->
+		<hello-camp myval="Hello Next"></hello-camp>
 		
 	</view>
 </template>
@@ -70,8 +70,14 @@
 	
 	// gh_4e5d2e602971
 	// const { serverUrl, qq } = this;
+	
+	// 引入自定义组件
+	import helloCamp from '../../components/helloCamp.vue';
 
 	export default {
+		components:{
+			helloCamp
+		},
 		data() {
 			return {
 				// banner列表
