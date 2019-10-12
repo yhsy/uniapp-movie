@@ -42,16 +42,20 @@
 						<view class="movie-name">
 							{{item.name}}
 						</view>
-						<view class="movie-score-wapper">
-							<image :src="item.score > 1 ? '../../static/imgs/icons/star-yellow.png' : '../../static/imgs/icons/star-gray.png' " class="icon-star"></image>
-							<image :src="item.score > 3 ? '../../static/imgs/icons/star-yellow.png' : '../../static/imgs/icons/star-gray.png' " class="icon-star"></image>
-							<image :src="item.score > 5 ? '../../static/imgs/icons/star-yellow.png' : '../../static/imgs/icons/star-gray.png' " class="icon-star"></image>
-							<image :src="item.score > 7 ? '../../static/imgs/icons/star-yellow.png' : '../../static/imgs/icons/star-gray.png' " class="icon-star"></image>
-							<image :src="item.score > 9 ? '../../static/imgs/icons/star-yellow.png' : '../../static/imgs/icons/star-gray.png' " class="icon-star"></image>
-							<view class="movie-score">
-								{{item.score}}
-							</view>
-						</view>
+						
+						<!-- 
+							<view class="movie-score-wapper">
+								<image :src="item.score > 1 ? '../../static/imgs/icons/star-yellow.png' : '../../static/imgs/icons/star-gray.png' " class="icon-star"></image>
+								<image :src="item.score > 3 ? '../../static/imgs/icons/star-yellow.png' : '../../static/imgs/icons/star-gray.png' " class="icon-star"></image>
+								<image :src="item.score > 5 ? '../../static/imgs/icons/star-yellow.png' : '../../static/imgs/icons/star-gray.png' " class="icon-star"></image>
+								<image :src="item.score > 7 ? '../../static/imgs/icons/star-yellow.png' : '../../static/imgs/icons/star-gray.png' " class="icon-star"></image>
+								<image :src="item.score > 9 ? '../../static/imgs/icons/star-yellow.png' : '../../static/imgs/icons/star-gray.png' " class="icon-star"></image>
+								<view class="movie-score">
+									{{item.score}}
+								</view>
+							</view> 
+						-->
+						<trailer-stars :innerScore="item.score" :showNum="1"></trailer-stars>
 					</view>
 				</view>
 			</scroll-view>
@@ -59,24 +63,27 @@
 		<!-- 热门超英-end -->
 		
 		<!-- 使用自定义组件 -->
-		<hello-camp myval="Hello Next"></hello-camp>
+		<!-- <hello-camp myval="Hello Next"></hello-camp> -->
 		
 	</view>
 </template>
 
 <script>
 	// 引入Api配置文件
-	// import api from "../../common/api.js";
+	import api from "../../common/api.js";
 	
 	// gh_4e5d2e602971
 	// const { serverUrl, qq } = this;
 	
 	// 引入自定义组件
 	import helloCamp from '../../components/helloCamp.vue';
+	// 引入评分组件
+	import trailerStars from '../../components/trailerStars/trailerStars.vue';
 
 	export default {
 		components:{
-			helloCamp
+			helloCamp,
+			trailerStars,
 		},
 		data() {
 			return {
@@ -95,10 +102,11 @@
 		methods: {
 			// 获取banner列表-接口
 			getBanner(){
-				// const { serverUrl, qq } = api;
+				// 通用性强(全端支持)
+				const { serverUrl, qq } = api;
 				
-				// 通过main.js的prototype挂载实现
-				const { serverUrl, qq } = this;
+				// 通过main.js的prototype挂载实现(坑:Ios不支持)
+				// const { serverUrl, qq } = this;
 				// console.log(serverUrl,qq);
 				uni.request({
 				    url: serverUrl + '/index/carousel/list', //仅为示例，并非真实接口地址。
@@ -110,7 +118,7 @@
 						'content-type':'application/x-www-form-urlencoded',
 					},
 				    success: (res) => {
-						console.log(res.data);
+						// console.log(res.data);
 						// debugger;
 						const resData = res.data;
 						// 判断数据是否获取成功
@@ -125,8 +133,9 @@
 			},
 			// 获取热门超英-接口
 			getHotSuperHero(){
+				const { serverUrl, qq } = api;
 				// 通过main.js的prototype挂载实现
-				const { serverUrl, qq } = this;
+				// const { serverUrl, qq } = this;
 
 				uni.request({
 				    url: serverUrl + '/index/movie/hot?type=superhero', //仅为示例，并非真实接口地址。
@@ -138,7 +147,7 @@
 						'content-type':'application/x-www-form-urlencoded',
 					},
 				    success: (res) => {
-						console.log(res.data);
+						// console.log(res.data);
 						const resData = res.data;
 						// 判断数据是否获取成功
 						if(resData.status === 200) {
