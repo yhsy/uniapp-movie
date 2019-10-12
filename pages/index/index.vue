@@ -91,6 +91,8 @@
 				bList: [],
 				// 热门超英列表
 				hsList: [],
+				// 热门预告列表,
+				htList: [],
 			}
 		},
 		onLoad() {
@@ -98,6 +100,8 @@
 			this.getBanner()
 			// 获取热门超英-列表
 			this.getHotSuperHero()
+			// 获取热门预告-列表
+			this.getHotTrailer()
 		},
 		methods: {
 			// 获取banner列表-接口
@@ -109,7 +113,7 @@
 				// const { serverUrl, qq } = this;
 				// console.log(serverUrl,qq);
 				uni.request({
-				    url: serverUrl + '/index/carousel/list', //仅为示例，并非真实接口地址。
+				    url: serverUrl + '/index/carousel/list',
 					method: 'POST',
 				    data: {
 						qq: qq,
@@ -138,7 +142,7 @@
 				// const { serverUrl, qq } = this;
 
 				uni.request({
-				    url: serverUrl + '/index/movie/hot?type=superhero', //仅为示例，并非真实接口地址。
+				    url: serverUrl + '/index/movie/hot?type=superhero',
 					method: 'POST',
 				    data: {
 						qq: qq,
@@ -152,6 +156,33 @@
 						// 判断数据是否获取成功
 						if(resData.status === 200) {
 							this.hsList = resData.data;
+						} else {
+							console.log(resData.msg)
+						}
+						
+				    }
+				});
+			},
+			// 获取热门预告-接口
+			getHotTrailer(){
+				const { serverUrl, qq } = api;
+
+				uni.request({
+				    url: serverUrl + '/index/movie/hot?type=trailer',
+					method: 'POST',
+				    data: {
+						qq: qq,
+				    },
+					header:{	
+						'content-type':'application/x-www-form-urlencoded',
+					},
+				    success: (res) => {
+						console.log(res.data);
+						// debugger;
+						const resData = res.data;
+						// 判断数据是否获取成功
+						if(resData.status === 200) {
+							this.htList = resData.data;
 						} else {
 							console.log(resData.msg)
 						}
