@@ -22,7 +22,10 @@
 
 <script>
 	// 引入Api配置文件
-	import api from "../../common/api.js";
+	// import api from "../../common/api.js";
+	
+	// gh_4e5d2e602971
+	
 
 	export default {
 		data() {
@@ -38,7 +41,11 @@
 		methods: {
 			// 获取banner列表-接口
 			getBanner(){
-				const { serverUrl, qq } = api;
+				// const { serverUrl, qq } = api;
+				
+				// 通过main.js的prototype挂载实现
+				const { serverUrl, qq } = this;
+				// console.log(serverUrl,qq);
 				uni.request({
 				    url: serverUrl + '/index/carousel/list', //仅为示例，并非真实接口地址。
 					method: 'POST',
