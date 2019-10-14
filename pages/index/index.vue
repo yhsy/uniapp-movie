@@ -145,6 +145,9 @@
 						<view class="text">
 							赞一下
 						</view>
+<!-- 						<view class="zan-me animation-opacity" :animation="animationData">
+							+1
+						</view> -->
 					</view>
 				</view>
 			</view>
@@ -181,6 +184,8 @@
 				htList: [],
 				// 猜你喜欢列表
 				loveList: [],
+				// // 动画对象
+				// animationData: {}
 			}
 		},
 		onLoad() {
@@ -192,6 +197,15 @@
 			this.getHotTrailer()
 			// 获取猜你喜欢-列表
 			this.getMyLove()
+			
+			// // 页面创建的时候，创建一个临时动画对象
+			// this.animation = uni.createAnimation()
+			
+		},
+		// 页面卸载
+		onUnload(){
+			// 清除动画数据
+			this.animationData = {}
 		},
 		methods: {
 			// 获取banner列表-接口

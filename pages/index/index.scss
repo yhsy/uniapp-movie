@@ -92,6 +92,7 @@
 /* 猜你喜欢-start */
 	.m-love{
 		margin-top: 20upx;
+		margin-bottom: 40upx;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
@@ -119,13 +120,13 @@
 				font-size: 28upx;
 				height: 80upx;
 				line-height: 40upx;
-				color: #ccc;
+				color: #aaa;
 			}
 		}
 		.love-zan{
 			width: 144upx;
 			height: 240upx;
-			border-left: 2px dashed #ccc;
+			border-left: 2px dashed #ddd;
 			.zan-wrapper{
 				width: 144upx;
 				height: 240upx;
@@ -141,7 +142,7 @@
 			}
 			.text{
 				font-size: 28upx;
-				color: orange;
+				color: #feab2a;
 			}
 		}
 		
