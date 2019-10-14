@@ -55,7 +55,7 @@
 								</view>
 							</view> 
 						-->
-						<trailer-stars :innerScore="item.score" :showNum="1"></trailer-stars>
+						<!-- <trailer-stars :innerScore="item.score" :showNum="1"></trailer-stars> -->
 					</view>
 				</view>
 			</scroll-view>
@@ -73,34 +73,28 @@
 			</view>
 			<view class="page-block">
 				<view class="m-trailer">
-					<view class="video-item" v-for="vItem in htList" :key="vItem.id">
-						<!-- 						
-							<video
-								src="https://dcloud-img.oss-cn-hangzhou.aliyuncs.com/guide/uniapp/%E7%AC%AC1%E8%AE%B2%EF%BC%88uni-app%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D%EF%BC%89-%20DCloud%E5%AE%98%E6%96%B9%E8%A7%86%E9%A2%91%E6%95%99%E7%A8%8B@20181126.mp4"
-								enable-danmu danmu-btn controls
-							>
-							</video> 
-						-->	
+					<!--
 						<video
+							src="https://dcloud-img.oss-cn-hangzhou.aliyuncs.com/guide/uniapp/%E7%AC%AC1%E8%AE%B2%EF%BC%88uni-app%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D%EF%BC%89-%20DCloud%E5%AE%98%E6%96%B9%E8%A7%86%E9%A2%91%E6%95%99%E7%A8%8B@20181126.mp4"
+							enable-danmu danmu-btn controls
+						>
+						</video>
+					-->
+					<!-- #ifndef  MP-ALIPAY -->
+						<video
+							v-for="vItem in htList"
+							:key="vItem.id"
+							class="video-item"
 							:src="vItem.trailer"
 							:poster="vItem.poster"
 							controls
-						/>
-					</view>
-
+						></video>
+					<!-- #endif -->
 				</view>
 			</view>
 		</view>
 		
-		<!-- 热门预告 -->
-		<view class="page-block super-hot">
-			<view class="hot-title-wapper">
-				<image src="../../static/imgs/icons/guess-u-like.png" class="icon-hot"></image>
-				<view class="hot-title">猜你喜欢</view>
-			</view>
-			<view class="page-block">
-			</view>
-		</view>
+
 		
 	</view>
 </template>

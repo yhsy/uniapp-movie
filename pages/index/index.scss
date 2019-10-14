@@ -72,16 +72,19 @@
 	}
 }
 /* 热门超英-end */
-
 .m-trailer{
 	margin-top: 20upx;
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 	justify-content: space-between;
 	.video-item{
-		video{
-			width: 350upx;
-			height: 220upx; 
-		}
+		width: 350upx;
+		height: 220upx;
 	}
 }
+// /*  #ifndef  APP-PLUS  */
+// /*  #endif  */
+
+// /*  #ifdef  APP-PLUS  */
+// /*  #endif  */
