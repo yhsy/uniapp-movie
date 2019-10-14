@@ -18,7 +18,11 @@
 		width: 100%;
 		height: 100%;
 		background-color: #f7f7f7;
-		position: absolute;
+		/*  #ifdef  H5  */
+			/* H5有效的样式 */
+			/* position: absolute; */
+			/* overflow: auto; */
+		/*  #endif  */
 	}
 	.page-block{
 		background-color: #fff;

@@ -72,3 +72,16 @@
 	}
 }
 /* 热门超英-end */
+
+.m-trailer{
+	margin-top: 20upx;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	.video-item{
+		video{
+			width: 350upx;
+			height: 220upx; 
+		}
+	}
+}
