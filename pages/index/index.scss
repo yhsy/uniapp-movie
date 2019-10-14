@@ -88,3 +88,62 @@
 
 // /*  #ifdef  APP-PLUS  */
 // /*  #endif  */
+
+/* 猜你喜欢-start */
+	.m-love{
+		margin-top: 20upx;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		.love-img{
+			width: 180upx;
+			height: 240upx;
+			border-radius: 10upx;
+		}
+		.love-info{
+			width: 340upx;
+			height: 240upx;
+			.info-wrap{
+				display: flex;
+				flex-direction: column;
+			}
+			.title{
+				width:340upx;
+				font-size: 40upx;
+				line-height: 52upx;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			.text{
+				font-size: 28upx;
+				height: 80upx;
+				line-height: 40upx;
+				color: #ccc;
+			}
+		}
+		.love-zan{
+			width: 144upx;
+			height: 240upx;
+			border-left: 2px dashed #ccc;
+			.zan-wrapper{
+				width: 144upx;
+				height: 240upx;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				text-align: center;
+			}
+			.icon-zan{
+				margin: 0 auto;
+				width: 40upx;
+				height: 40upx;
+			}
+			.text{
+				font-size: 28upx;
+				color: orange;
+			}
+		}
+		
+	}
+/* 猜你喜欢-end */

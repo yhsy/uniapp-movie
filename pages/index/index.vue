@@ -55,7 +55,7 @@
 								</view>
 							</view> 
 						-->
-						<!-- <trailer-stars :innerScore="item.score" :showNum="1"></trailer-stars> -->
+						<trailer-stars :innerScore="item.score" :showNum="1"></trailer-stars>
 					</view>
 				</view>
 			</scroll-view>
@@ -94,8 +94,63 @@
 			</view>
 		</view>
 		
-
-		
+		<!-- 猜你喜欢-start -->
+		<view class="page-block super-hot">
+			<view class="hot-title-wapper">
+				<image src="../../static/imgs/icons/guess-u-like.png" class="icon-hot"></image>
+				<view class="hot-title">猜你喜欢</view>
+			</view>
+			<!-- 			
+				<view class="page-block m-love">
+					<view class="love-img">
+						<image src="../../static/imgs/poster/civilwar.jpg" class="love-img"></image>
+					</view>
+					<view class="love-info">
+						<view class="info-wrap">
+							<view class="title">美国队长2:冬日XXXXXXXX</view>
+							<trailer-stars :innerScore="8.5" ></trailer-stars>
+							<view class="text tag">2018 / 美国 / 科幻 / 超级英雄</view>
+							<view class="text date">上映时间：2014-04-04(美国/中国大陆) </view>
+						</view>
+					</view>
+					<view class="love-zan">
+						<view class="zan-wrapper">
+							<view class="icon-zan">
+								<image src="../../static/imgs/icons/praise.png" class="icon-zan"></image>
+							</view>
+							<view class="text">
+								赞一下
+							</view>
+						</view>
+					</view>
+				</view>
+			-->
+			<view class="page-block m-love" v-for="info of loveList" :key="info.id">
+				<view class="love-img">
+					<image :src="info.poster" class="love-img"></image>
+				</view>
+				<view class="love-info">
+					<view class="info-wrap">
+						<view class="title">{{info.name}}</view>
+						<trailer-stars :innerScore="info.score" ></trailer-stars>
+						<view class="text tag">{{info.basicInfo}}</view>
+						<view class="text date">{{info.releaseDate}} </view>
+					</view>
+				</view>
+				<view class="love-zan">
+					<view class="zan-wrapper">
+						<view class="icon-zan">
+							<image src="../../static/imgs/icons/praise.png" class="icon-zan"></image>
+						</view>
+						<view class="text">
+							赞一下
+						</view>
+					</view>
+				</view>
+			</view>
+			
+		</view>
+		<!-- 猜你喜欢-end -->
 	</view>
 </template>
 
@@ -124,6 +179,8 @@
 				hsList: [],
 				// 热门预告列表,
 				htList: [],
+				// 猜你喜欢列表
+				loveList: [],
 			}
 		},
 		onLoad() {
@@ -133,6 +190,8 @@
 			this.getHotSuperHero()
 			// 获取热门预告-列表
 			this.getHotTrailer()
+			// 获取猜你喜欢-列表
+			this.getMyLove()
 		},
 		methods: {
 			// 获取banner列表-接口
@@ -208,12 +267,39 @@
 						'content-type':'application/x-www-form-urlencoded',
 					},
 				    success: (res) => {
-						console.log(res.data);
+						// console.log(res.data);
 						// debugger;
 						const resData = res.data;
 						// 判断数据是否获取成功
 						if(resData.status === 200) {
 							this.htList = resData.data.slice(0,2);
+						} else {
+							console.log(resData.msg)
+						}
+						
+				    }
+				});
+			},
+			// 获取猜你喜欢-接口
+			getMyLove(){
+				const { serverUrl, qq } = api;
+			
+				uni.request({
+				    url: serverUrl + '/index/guessULike',
+					method: 'POST',
+				    data: {
+						qq: qq,
+				    },
+					header:{	
+						'content-type':'application/x-www-form-urlencoded',
+					},
+				    success: (res) => {
+						console.log(res.data);
+						// debugger;
+						const resData = res.data;
+						// 判断数据是否获取成功
+						if(resData.status === 200) {
+							this.loveList = resData.data;
 						} else {
 							console.log(resData.msg)
 						}
