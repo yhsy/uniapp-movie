@@ -42,12 +42,14 @@
 			return {
 				// 搜索结果
 				sList: [],
-				// 搜索数据总条数
-				total: 0,
+				// 总页数
+				pageTotal: 0,
 				query: {
+					// 搜索关键词
 					keywords: '',
-					page: '',
-					pageSize: '',
+					// 页数
+					page: 1,
+					pageSize: 9,
 				}
 			}
 		},
@@ -89,8 +91,13 @@
 					
 						// 判断数据是否获取成功
 						if(resData.status === 200) {
+							// 服务端每次返回的数据
+							// const rList = resData.data.rows;
 							this.sList = resData.data.rows;
-							this.total = resData.data.total;
+							// 数据叠加
+							// this.sList = this.sList.concat(rList);
+							// 获取总页数
+							this.pageTotal = resData.data.total;
 						} else {
 							console.log(resData.msg)
 						}
@@ -111,6 +118,8 @@
 				const val = e.detail.value;
 				// console.log(val)
 				this.query.keywords = val;
+				this.query.page = 1;
+				this.query.pageSize = 15;
 				this.getSearchList()
 			}
 		}
