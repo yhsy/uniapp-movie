@@ -145,10 +145,10 @@
 						<view class="text">
 							赞一下
 						</view>
-						<!-- #ifndef H5 -->
-						<view class="text animation-opacity" :animation="animationDataArr[gIndex]">
-							+1
-						</view>
+						<!-- #ifdef APP-PLUS || MP-WEIXIN -->
+							<view class="text animation-opacity" :animation="animationDataArr[gIndex]">
+								+1
+							</view>
 						<!-- #endif -->
 					</view>
 				</view>
@@ -208,14 +208,18 @@
 			// 获取猜你喜欢-列表
 			this.getMyLove()
 			
-			// 页面创建的时候，创建一个临时动画对象
-			this.animation = uni.createAnimation()
+			// uni-app的动画只支持APP和微信小程序
+			// #ifdef APP-PLUS || MP-WEIXIN
+				// 页面创建的时候，创建一个临时动画对象
+				this.animation = uni.createAnimation()
+			// #endif
 			
 		},
 		// 页面卸载
 		onUnload(){
 			// 清除动画数据
-			this.animationData = {}
+			this.animationData = {};
+			this.animationDataArr = [{},{},{},{},{}];
 		},
 		methods: {
 			// 获取banner列表-接口
@@ -333,31 +337,33 @@
 			},
 			// 点赞动画
 			zanAnimation(e){
-				// 获取自定义属性的值(key要转 小写)
-				var gIndex = e.currentTarget.dataset.gindex;
-				// console.log(gIndex)
 				// return;
 				
-				// 构建动画数据，并通过step表示这组动画的完成
-				// 向上移动100px,透明度1,step一组动画的完成(动画时间1秒)
-				this.animation.translateY(-60).opacity(1).step({
-					duration: 400,
-				})
-				
-				// 导出动画数据到view组件，实现组件的动画效果
-				// this.animationData = this.animation.export()
-				this.animationData = this.animation
-				this.animationDataArr[gIndex] = this.animationData.export()
-				
-				// 还原动画
-				setTimeout(function() {
-					this.animation.translateY(0).opacity(0).step({
-						duration: 0,
+				// #ifdef APP-PLUS || MP-WEIXIN
+					// 获取自定义属性的值(key要转 小写)
+					var gIndex = e.currentTarget.dataset.gindex;
+					// console.log(gIndex)
+					// 构建动画数据，并通过step表示这组动画的完成
+					// 向上移动100px,透明度1,step一组动画的完成(动画时间1秒)
+					this.animation.translateY(-60).opacity(1).step({
+						duration: 400,
 					})
+					
+					// 导出动画数据到view组件，实现组件的动画效果
 					// this.animationData = this.animation.export()
 					this.animationData = this.animation
 					this.animationDataArr[gIndex] = this.animationData.export()
-				}.bind(this), 500);
+					
+					// 还原动画
+					setTimeout(function() {
+						this.animation.translateY(0).opacity(0).step({
+							duration: 0,
+						})
+						// this.animationData = this.animation.export()
+						this.animationData = this.animation
+						this.animationDataArr[gIndex] = this.animationData.export()
+					}.bind(this), 500);
+				// #endif
 			}
 		}
 	}
