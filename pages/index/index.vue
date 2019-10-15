@@ -125,7 +125,7 @@
 					</view>
 				</view>
 			-->
-			<view class="page-block m-love" v-for="info of loveList" :key="info.id">
+			<view class="page-block m-love" v-for="(info, gIndex) of loveList" :key="info.id">
 				<view class="love-img">
 					<image :src="info.poster" class="love-img"></image>
 				</view>
@@ -138,16 +138,18 @@
 					</view>
 				</view>
 				<view class="love-zan">
-					<view class="zan-wrapper">
+					<view class="zan-wrapper"  @click="zanAnimation" :data-gIndex="gIndex">
 						<view class="icon-zan">
 							<image src="../../static/imgs/icons/praise.png" class="icon-zan"></image>
 						</view>
 						<view class="text">
 							赞一下
 						</view>
-<!-- 						<view class="zan-me animation-opacity" :animation="animationData">
+						<!-- #ifndef H5 -->
+						<view class="text animation-opacity" :animation="animationDataArr[gIndex]">
 							+1
-						</view> -->
+						</view>
+						<!-- #endif -->
 					</view>
 				</view>
 			</view>
@@ -184,8 +186,16 @@
 				htList: [],
 				// 猜你喜欢列表
 				loveList: [],
-				// // 动画对象
-				// animationData: {}
+				// 动画对象
+				animationData: {},
+				// 动画对象的数组-每次点击对应的赞(5条数据)
+				animationDataArr: [
+					{},
+					{},
+					{},
+					{},
+					{},
+				]
 			}
 		},
 		onLoad() {
@@ -198,8 +208,8 @@
 			// 获取猜你喜欢-列表
 			this.getMyLove()
 			
-			// // 页面创建的时候，创建一个临时动画对象
-			// this.animation = uni.createAnimation()
+			// 页面创建的时候，创建一个临时动画对象
+			this.animation = uni.createAnimation()
 			
 		},
 		// 页面卸载
@@ -308,7 +318,7 @@
 						'content-type':'application/x-www-form-urlencoded',
 					},
 				    success: (res) => {
-						console.log(res.data);
+						// console.log(res.data);
 						// debugger;
 						const resData = res.data;
 						// 判断数据是否获取成功
@@ -320,6 +330,34 @@
 						
 				    }
 				});
+			},
+			// 点赞动画
+			zanAnimation(e){
+				// 获取自定义属性的值(key要转 小写)
+				var gIndex = e.currentTarget.dataset.gindex;
+				// console.log(gIndex)
+				// return;
+				
+				// 构建动画数据，并通过step表示这组动画的完成
+				// 向上移动100px,透明度1,step一组动画的完成(动画时间1秒)
+				this.animation.translateY(-60).opacity(1).step({
+					duration: 400,
+				})
+				
+				// 导出动画数据到view组件，实现组件的动画效果
+				// this.animationData = this.animation.export()
+				this.animationData = this.animation
+				this.animationDataArr[gIndex] = this.animationData.export()
+				
+				// 还原动画
+				setTimeout(function() {
+					this.animation.translateY(0).opacity(0).step({
+						duration: 0,
+					})
+					// this.animationData = this.animation.export()
+					this.animationData = this.animation
+					this.animationDataArr[gIndex] = this.animationData.export()
+				}.bind(this), 500);
 			}
 		}
 	}
