@@ -1,0 +1,43 @@
+.m-search {
+	position: relative;
+}
+/* 搜索框-start */
+	.m-search-hd {
+		margin: 20upx;
+		margin-top: 0;
+		display: flex;
+		flex-direction: row;
+		background-color: #eaeaea;
+		height: 60upx;
+		line-height: 60upx;
+		position: fixed;
+		top:0;
+	}
+	.icon-search {
+		margin: 10upx;
+		width: 40upx;
+		height: 40upx;
+	}
+	.ipt-search {
+		width: 650upx;
+		height: 60upx;
+		line-height: 60upx;
+		font-size: 28upx;
+		color:#ccc;
+	}
+/* 搜索框-end */
+
+.m-search-bd{
+	padding: 100upx 30upx;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+.search-item{
+	margin-bottom:20upx;
+}
+.poster-img{
+	width: 200upx;
+	height: 270upx;
+}

@@ -27,4 +27,7 @@
 	.page-block{
 		background-color: #fff;
 	}
+	.search-block{
+		background-color: #f8f8f8;
+	}
 </style>
