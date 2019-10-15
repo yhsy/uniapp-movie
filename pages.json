@@ -11,7 +11,9 @@
 				// 如果 h5没有配置就会使用 app-plus的配置，有设置 则覆盖 
 				"h5":{
 					"titleNView": false
-				}
+				},
+				// 是否开启下拉刷新(默认关闭)-首页
+				"enablePullDownRefresh": true
 			}
 		}
 	    ,{

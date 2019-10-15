@@ -310,8 +310,17 @@
 			},
 			// 获取猜你喜欢-接口
 			getMyLove(){
+				// 显示Loading
+				uni.showLoading({
+					// 开启透明遮罩
+					mask: true
+				})
+				
+				// 显示导航栏加载Loading
+				uni.showNavigationBarLoading()
+				
 				const { serverUrl, qq } = api;
-			
+				
 				uni.request({
 				    url: serverUrl + '/index/guessULike',
 					method: 'POST',
@@ -332,7 +341,15 @@
 							console.log(resData.msg)
 						}
 						
-				    }
+				    },
+					complete: () =>{
+						// 停止当前页面下拉刷新
+						uni.stopPullDownRefresh();
+						// 隐藏Loading
+						uni.hideLoading();
+						// 隐藏导航栏加载Loading
+						uni.hideNavigationBarLoading()
+					}
 				});
 			},
 			// 点赞动画
@@ -364,7 +381,11 @@
 						this.animationDataArr[gIndex] = this.animationData.export()
 					}.bind(this), 500);
 				// #endif
-			}
+			},
+		},
+		// 下拉刷新-监控
+		onPullDownRefresh(){
+			this.getMyLove()
 		}
 	}
 </script>
