@@ -25,7 +25,13 @@
 						</view>
 					 -->
 					<view class="search-item" v-for="item of sList" :key="item.id">
-						<image :src="item.poster" class="poster-img"></image>
+						<image 
+							:src="item.poster" 
+							class="poster-img"
+							:data-trailerId="item.id"
+							@click="goMovieDetail"
+						>
+						</image>
 					</view>
 				</view>
 			</view>
@@ -154,6 +160,16 @@
 				this.query.pageSize = 15;
 				this.sList = [];
 				this.getSearchList(1)
+			},
+			// 跳转到电影详情页
+			goMovieDetail(e){
+				// var gIndex = e.currentTarget.dataset.gindex;
+				const trailerId = e.currentTarget.dataset.trailerid;
+				// console.log(trailerId)
+				// 跳转页面
+				uni.navigateTo({
+					url: '../movie/movie?trailerId=' + trailerId
+				})
 			}
 		}
 	}
