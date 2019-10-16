@@ -54,11 +54,43 @@
 			}
 		},
 		onLoad(){
-			this.getSearchList()
+			this.getSearchList(1)
+		},
+		// 页面上拉(上拉加载)-生命周期
+		onReachBottom(){
+			console.log('页面滚动到底部的事件')
+			
+			// const val = e.detail.value;
+			// console.log(val)
+			// 总页数
+			const { pageTotal } = this;
+			// 当前页
+			const { page } = this.query;
+			// console.log(page,pageTotal)
+			// 大于当前页数,不分页
+			if(page >= pageTotal) {
+				uni.showModal({
+				    title: '没有更多数据了',
+				    // content: '这是一个模态弹窗',
+					// 是否显示取消按钮
+					showCancel: false,
+				    success: function (res) {
+				        if (res.confirm) {
+				            console.log('用户点击确定');
+				        } else if (res.cancel) {
+				            console.log('用户点击取消');
+				        }
+				    }
+				});
+				return
+			}
+			const pages = this.query.page + 1;
+			this.query.page = pages;
+			this.getSearchList(pages)
 		},
 		methods: {
 			// 搜索列表
-			getSearchList(){
+			getSearchList(page){
 				// 显示Loading
 				uni.showLoading({
 					// 开启透明遮罩
@@ -71,7 +103,7 @@
 				// 通用性强(全端支持)
 				const { serverUrl, qq } = api;
 				// 获取查询参数
-				const { keywords, page, pageSize } = this.query;
+				const { keywords, pageSize } = this.query;
 				uni.request({
 				    url: serverUrl + '/search/list',
 					method: 'POST',
@@ -92,10 +124,10 @@
 						// 判断数据是否获取成功
 						if(resData.status === 200) {
 							// 服务端每次返回的数据
-							// const rList = resData.data.rows;
-							this.sList = resData.data.rows;
+							const rList = resData.data.rows;
+							// this.sList = resData.data.rows;
 							// 数据叠加
-							// this.sList = this.sList.concat(rList);
+							this.sList = this.sList.concat(rList);
 							// 获取总页数
 							this.pageTotal = resData.data.total;
 						} else {
@@ -120,7 +152,8 @@
 				this.query.keywords = val;
 				this.query.page = 1;
 				this.query.pageSize = 15;
-				this.getSearchList()
+				this.sList = [];
+				this.getSearchList(1)
 			}
 		}
 	}

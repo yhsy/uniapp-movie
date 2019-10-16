@@ -1,5 +1,6 @@
 .m-search {
 	position: relative;
+	padding-top: 20upx;
 }
 /* 搜索框-start */
 	.m-search-hd {
@@ -11,7 +12,8 @@
 		height: 60upx;
 		line-height: 60upx;
 		position: fixed;
-		top:20upx;
+		top:0;
+		z-index:2000;
 	}
 	.icon-search {
 		margin: 10upx;
