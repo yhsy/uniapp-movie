@@ -11,7 +11,7 @@
 		height: 60upx;
 		line-height: 60upx;
 		position: fixed;
-		top:0;
+		top:20upx;
 	}
 	.icon-search {
 		margin: 10upx;
@@ -28,14 +28,14 @@
 /* 搜索框-end */
 
 .m-search-bd{
-	padding: 100upx 30upx;
+	padding: 140upx 30upx 100upx;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	justify-content: space-between;
+	justify-content: start;
 }
 .search-item{
-	margin-bottom:20upx;
+	margin: 10upx 15upx;
 }
 .poster-img{
 	width: 200upx;

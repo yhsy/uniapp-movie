@@ -3,6 +3,10 @@
 		{
 			"path" : "pages/search/search",
 			"style" : {
+				"app-plus":{
+					// 禁用原生导航栏
+					"titleNView": false
+				},
 				"navigationBarTitleText": "搜索预告片"
 			}
 		},
