@@ -221,6 +221,10 @@
 			this.animationData = {};
 			this.animationDataArr = [{},{},{},{},{}];
 		},
+		// 下拉刷新-监控
+		onPullDownRefresh(){
+			this.getMyLove()
+		},
 		methods: {
 			// 获取banner列表-接口
 			getBanner(){
@@ -313,7 +317,8 @@
 				// 显示Loading
 				uni.showLoading({
 					// 开启透明遮罩
-					mask: true
+					mask: true,
+					title: '请稍候',
 				})
 				
 				// 显示导航栏加载Loading
@@ -382,10 +387,6 @@
 					}.bind(this), 500);
 				// #endif
 			},
-		},
-		// 下拉刷新-监控
-		onPullDownRefresh(){
-			this.getMyLove()
 		}
 	}
 </script>
