@@ -175,6 +175,6 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
 	@import './search.scss'
 </style>
