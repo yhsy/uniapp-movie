@@ -16,7 +16,10 @@
 			<!-- 基本信息-start -->
 			<view class="m-info">
 				<view>
-					<image :src="info.poster" class="poster-img" @click="gotoCover(info.poster)"></image>
+					<!-- <image :src="info.poster" class="poster-img" @click="gotoCover(info.poster)"></image> -->
+					<navigator :url="'../cover/cover?cover='+info.poster">
+						<image :src="info.poster" class="poster-img"></image>
+					</navigator>
 				</view>
 				<view>
 					<view class="info">
