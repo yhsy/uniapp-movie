@@ -16,7 +16,7 @@
 			<!-- 基本信息-start -->
 			<view class="m-info">
 				<view>
-					<image :src="info.poster" class="poster-img"></image>
+					<image :src="info.poster" class="poster-img" @click="gotoCover(info.poster)"></image>
 				</view>
 				<view>
 					<view class="info">
@@ -327,6 +327,12 @@
 					})
 				}
 
+			},
+			// 跳转到封面页
+			gotoCover(cover){
+				uni.navigateTo({
+					url: '../cover/cover?cover=' + cover
+				})
 			}
 		}
 	}

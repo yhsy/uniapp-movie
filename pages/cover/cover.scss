@@ -1,0 +1,20 @@
+.m-cover{
+	width: 100%;
+	// 高度100%:方法1
+	height: 100vh;
+	// 高度100%:方法2
+	// height: 100%;
+	// position: fixed;
+	background-color: #000;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	// 交叉轴-统一居中
+	align-items: center;
+}
+.img-cover{
+	// width: 640upx;
+	// height: 864upx;
+	// 交叉轴元素:自身居中
+	// align-self: center;
+}
