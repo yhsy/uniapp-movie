@@ -192,6 +192,14 @@
 				backgroundColor: "#000000"
 			})
 		},
+		// 分享功能(此函数仅仅只支持小程序端的分享(微信群或者好友))
+		onShareAppMessage(res){
+			return {
+				// 标题
+				title: this.info.name,
+				path: '/pages/movie/movie?trailerId=' + this.info.id
+			}
+		},
 		methods: {
 			// 获取影片详情
 			getTrailer(){
