@@ -35,7 +35,11 @@
 			"style" : {
 				"app-plus":{
 					// 禁用原生导航栏
-					"titleNView": false
+					// "titleNView": false,
+					"titleNView": {
+						// 渐变式沉浸式导航
+						"type": "transparent"
+					}
 				},
 				"navigationBarTitleText": "电影详情页"
 			}

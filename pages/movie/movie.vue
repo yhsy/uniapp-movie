@@ -183,6 +183,11 @@
 			// 获取演员列表
 			this.getStaff(2);
 			
+			// 通过Api设置导航栏的属性
+			uni.setNavigationBarColor({
+				frontColor: "#ffffff",
+				backgroundColor: "#000000"
+			})
 		},
 		methods: {
 			// 获取影片详情
