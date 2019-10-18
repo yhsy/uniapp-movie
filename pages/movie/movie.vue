@@ -200,6 +200,56 @@
 				path: '/pages/movie/movie?trailerId=' + this.info.id
 			}
 		},
+		// 监听当前标题栏(导航栏)的按钮点击事件
+		onNavigationBarButtonTap(res) {
+			// console.log(res);
+			const type = res.type;
+			const { name, id, cover,poster } = this.info;
+			// 索引值是从右到左的
+			// const index = res.index;
+			switch (type){
+				case 'share':
+					console.log('点击了分享')
+					// uni.share({
+					// 	// 必填:分享服务提供商(weixin-分享微信消息、朋友圈及微信小程序,sinaweibo-新浪微博分享	,qq-分享到QQ好友,)
+					// 	provider: "weixin",
+					// 	// 类型(0-图文,1-纯文字,2-纯图片,3-音乐,4-视频,5-小程序)
+					// 	type: 0,
+					// 	// 分享场景:(WXSceneSession-分享到聊天界面,WXSenceTimeline-分享到朋友圈,WXSceneFavorite-分享到微信收藏)
+					// 	// provider = weixin 时必选
+					// 	scene: 'WXSceneSession',
+					// 	// 跳转链接
+					// 	href: '/pages/movie/movie?trailerId=' + this.info.id,
+					// 	// 图片地址(type=0,2,5必选)
+					// 	imageUrl: this.info.poster,
+					// 	success: (res) => {
+					// 		console.log(res)
+					// 		uni.showToast({
+					// 			title: '分享成功',
+					// 			duration: 2000
+					// 		})
+					// 	}
+					// })
+					uni.share({
+						provider: "weixin",
+						scene: "WXSenceTimeline",
+						type: 0,
+						href: 'https://www.imovietrailer.com/#/pages/movie/movie?trailerId=' + id,
+						title: `NEXT超英预告:《${name}》`,
+						summary: `NEXT超英预告:《${name}》`,
+						imageUrl: poster,
+						success: function (res) {
+							console.log("success:" + JSON.stringify(res));
+						}
+					});
+					break;
+				// case 'home':
+				// 	console.log('点击了Home')
+				// 	break;
+				default:
+					break;
+			}
+		},
 		methods: {
 			// 获取影片详情
 			getTrailer(){
@@ -226,14 +276,14 @@
 						'content-type':'application/x-www-form-urlencoded',
 					},
 				    success: (res) => {
-						console.log(res.data);
+						// console.log(res.data);
 						// debugger;
 						const resData = res.data;
 						// 判断数据是否获取成功
 						if(resData.status === 200) {
 							this.info = resData.data;
 							this.infoScore =  resData.data.score;
-							console.log(resData.data.score)
+							// console.log(resData.data.score)
 							this.stillsList = JSON.parse(resData.data.plotPics);
 						} else {
 							console.log(resData.msg)

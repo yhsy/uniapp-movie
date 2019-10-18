@@ -37,8 +37,20 @@
 					// 禁用原生导航栏
 					// "titleNView": false,
 					"titleNView": {
-						// 渐变式沉浸式导航
-						"type": "transparent"
+						// 导航栏样式("default"-默认样式；"transparent"-滚动透明渐变；"float"-悬浮导航栏。)
+						"type": "transparent",
+						// 自定义导航栏按钮组(小程序里无效、多个,右对齐，从右到左排序)
+						"buttons": [
+							{
+								"type":"share"
+							}
+							// {
+							// 	"type":"home"
+							// }
+							// {
+							// 	"type": "forward"
+							// }
+						]
 					}
 				},
 				"navigationBarTitleText": "电影详情页"
