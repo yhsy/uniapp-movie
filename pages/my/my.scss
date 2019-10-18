@@ -14,9 +14,35 @@
 .m-hd{
 	display: flex;
 	flex-direction: row;
-	justify-content: flex-start;
+	justify-content: space-between;
 	.img-avatar{
 		width: 120upx;
 		height: 120upx;
+		border-radius: 50%;
 	}
+	.info{
+		width: 80%;
+		align-content: flex-start;
+	}
+	.info-wrap{
+		margin-left: 40upx;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		.nickname{
+			color: #6a5018;
+			font-size: 36upx;
+			font-weight: 700;
+		}
+		.username{
+			color: #a38e62;
+			font-size: 28upx;
+			margin-top: 10upx;
+		}
+	}
+	.icon-setting{
+		width: 40upx;
+		height: 40upx;
+	}
+	
 }

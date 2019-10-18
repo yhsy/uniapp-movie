@@ -6,13 +6,13 @@
 				<view class="">
 					<image src="../../static/imgs/icons/default-face.png"  class="img-avatar"></image>
 				</view>
-				<view class="">
+				<view class="info">
 					<view class="info-wrap">
 						<view class="nickname">admin01</view>
 						<view class="username">账号:admin01</view>
 					</view>
 				</view>
-				<view class="">
+				<view>
 					<image src="../../static/imgs/icons/settings.png" class="icon-setting"></image>
 				</view>
 			</view>
