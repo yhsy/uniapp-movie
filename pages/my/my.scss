@@ -1,0 +1,22 @@
+.g-box{
+	
+}
+.g-hd{
+	/* #ifndef MP */
+		padding: 120upx 30upx 40upx;
+	/* #endif */
+	/* #ifdef MP */
+		padding: 120upx 30upx 40upx;
+	/* #endif */
+	background-color: #ffd655;
+	background: url(http://122.152.205.72:88/group1/M00/00/03/CpoxxFwu_1OAYFAIAAAzO_Q1tPg693.png) repeat-x;
+}
+.m-hd{
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	.img-avatar{
+		width: 120upx;
+		height: 120upx;
+	}
+}
