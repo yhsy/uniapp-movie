@@ -8,6 +8,7 @@
 			class="u-video"
 			controls></video> -->
 			<video
+			id="tVideo"
 			:src="info.trailer" 
 			class="u-video"
 			controls></video>
@@ -168,7 +169,9 @@
 				directorPhotoList:[],
 				// 演员图片列表
 				performerPhotoList:[],
-				photoList: []
+				photoList: [],
+				// 视频的上下文对象
+				videoContext: {}
 			}
 		},
 		onLoad(params){
@@ -249,6 +252,22 @@
 				default:
 					break;
 			}
+		},
+		// 页面初次渲染完成
+		onReady() {
+			this.videoContext = uni.createVideoContext('tVideo')
+		},
+		// 页面被隐藏的时候,暂停播放
+		onHide(){
+			// 视频暂停
+			this.videoContext.pause()
+		},
+		// 页面被再次显示的时候,可以播放
+		onShow(){
+			// if(this.videoContext) {
+			// 	// 视频播放
+			// 	this.videoContext.play()
+			// }
 		},
 		methods: {
 			// 获取影片详情
