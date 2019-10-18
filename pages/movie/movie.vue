@@ -264,10 +264,10 @@
 		},
 		// 页面被再次显示的时候,可以播放
 		onShow(){
-			// if(this.videoContext) {
-			// 	// 视频播放
-			// 	this.videoContext.play()
-			// }
+			if(this.videoContext) {
+				// 视频播放
+				this.videoContext.play()
+			}
 		},
 		methods: {
 			// 获取影片详情

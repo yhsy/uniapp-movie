@@ -80,7 +80,7 @@
 						>
 						</video>
 					-->
-					<!-- #ifndef  MP-ALIPAY -->
+					<!-- #ifndef  MP-ALIPAY || MP-TOUTIAO -->
 						<video
 							v-for="vItem in htList"
 							:key="vItem.id"
@@ -88,6 +88,10 @@
 							:src="vItem.trailer"
 							:poster="vItem.poster"
 							controls
+							
+							:id="vItem.id"
+							:data-playIndex="vItem.id"
+							@play="isPlay"
 						></video>
 					<!-- #endif -->
 				</view>
@@ -224,6 +228,20 @@
 		// 下拉刷新-监控
 		onPullDownRefresh(){
 			this.getMyLove()
+		},
+		// 隐藏页面时,停止播放预告片
+		onHide(){
+			if(this.videoContext){
+				this.videoContext.pause();
+			}
+		},
+		// 显示页面时,如果视频对象存在,那就播放
+		onShow(){
+			if(this.videoContext){
+				this.videoContext.play();
+			} else {
+				this.videoContext.pause();
+			}
 		},
 		methods: {
 			// 获取banner列表-接口
@@ -387,6 +405,25 @@
 					}.bind(this), 500);
 				// #endif
 			},
+			// 播放一个视频时候,需要暂停其他正在播放的视频
+			isPlay(e){
+				let trailerId = ""
+				if(e){
+					// 获取当前视频的 id
+					// debugger
+					trailerId = e.currentTarget.dataset.playindex;
+					this.videoContext = uni.createVideoContext(trailerId);
+				}
+				// 暂停其他视频播放
+				const { htList } = this;
+				for(let i=0;i< htList.length;i++){
+					let tempId = htList[i].id;
+					// 暂停其他视频
+					if(tempId !== trailerId) {
+						uni.createVideoContext(tempId).pause();
+					}
+				}
+			}
 		}
 	}
 </script>
