@@ -62,6 +62,10 @@
 				"navigationBarTitleText": "封面"
 			}
         }
+        ,{
+            "path" : "pages/login/login",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
