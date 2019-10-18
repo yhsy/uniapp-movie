@@ -128,7 +128,7 @@
 						'content-type':'application/x-www-form-urlencoded',
 					},
 				    success: (res) => {
-						console.log(res.data);
+						// console.log(res.data);
 						// debugger;
 						const resData = res.data;
 					
