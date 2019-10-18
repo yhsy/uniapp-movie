@@ -75,19 +75,24 @@
 			// console.log(page,pageTotal)
 			// 大于当前页数,不分页
 			if(page >= pageTotal) {
-				uni.showModal({
-				    title: '没有更多数据了',
-				    // content: '这是一个模态弹窗',
-					// 是否显示取消按钮
-					showCancel: false,
-				    success: function (res) {
-				        if (res.confirm) {
-				            console.log('用户点击确定');
-				        } else if (res.cancel) {
-				            console.log('用户点击取消');
-				        }
-				    }
-				});
+				// uni.showModal({
+				//     title: '没有更多数据了',
+				//     // content: '这是一个模态弹窗',
+				// 	// 是否显示取消按钮
+				// 	showCancel: false,
+				//     success: function (res) {
+				//         if (res.confirm) {
+				//             console.log('用户点击确定');
+				//         } else if (res.cancel) {
+				//             console.log('用户点击取消');
+				//         }
+				//     }
+				// });
+				uni.showToast({
+					title: '没有更多数据了',
+					icon: 'none',
+					duration: 2000,
+				})
 				return
 			}
 			const pages = this.query.page + 1;
