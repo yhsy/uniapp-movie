@@ -43,7 +43,9 @@
 					</view>
 				</view>
 				<view>
-					<image src="../../static/imgs/icons/settings.png" class="icon-setting" v-if="logins"></image>
+					<navigator url="userInfo/userInfo" v-if="logins">
+						<image src="../../static/imgs/icons/settings.png" class="icon-setting"></image>
+					</navigator>
 				</view>
 			</view>
 		</view>
