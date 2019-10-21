@@ -1,0 +1,28 @@
+.m-form{
+	border-top: solid 1px #dbdbda;
+	padding: 0 40upx;
+	.avatar-wrap{
+		margin: 120upx 0;
+		text-align: center;
+		.img-avatar{
+			width: 160upx;
+			height: 160upx;
+		}
+	}
+	.ipt-box{
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		padding: 30upx 20upx;
+		border-bottom: solid 1px #dbdbda;
+	}
+	.ipt-username{
+		margin-left: 20upx;
+		width:  500upx;
+	}
+	.ipt-btn{
+		margin-top: 80upx;
+		padding: 10upx 20upx;
+	}
+
+}

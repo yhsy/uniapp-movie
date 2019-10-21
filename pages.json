@@ -1,6 +1,10 @@
 {
 	"pages": [
 		{
+		    "path" : "pages/login/login",
+		    "style" : {}
+		},
+		{
 			"path" : "pages/search/search",
 			"style" : {
 				"app-plus":{
@@ -62,10 +66,10 @@
 				"navigationBarTitleText": "封面"
 			}
         }
-        ,{
-            "path" : "pages/login/login",
-            "style" : {}
-        }
+        // ,{
+        //     "path" : "pages/login/login",
+        //     "style" : {}
+        // }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
