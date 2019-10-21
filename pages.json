@@ -1,25 +1,15 @@
 {
 	"pages": [
-        {
-            "path" : "pages/my/userInfo/userInfo",
-            "style" : {
-				"navigationBarTitleText": "我的账号",
-				"navigationBarTextStyle": "white",
-				"navigationBarBackgroundColor": "#ffd655",
-				"backgroundColor": "#ffd655"
-			}
-        },
+   //      {
+   //          "path" : "pages/my/userInfo/userInfo",
+   //          "style" : {
+			// 	"navigationBarTitleText": "我的账号",
+			// 	"navigationBarTextStyle": "white",
+			// 	"navigationBarBackgroundColor": "#ffd655",
+			// 	"backgroundColor": "#ffd655"
+			// }
+   //      },
 		{
-			"path" : "pages/search/search",
-			"style" : {
-				"app-plus":{
-					// 禁用原生导航栏
-					"titleNView": false
-				},
-				"navigationBarTitleText": "搜索预告片"
-			}
-		}
-		,{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "首页",
@@ -35,10 +25,29 @@
 				"enablePullDownRefresh": true
 			}
 		}
+		,{
+			"path" : "pages/search/search",
+			"style" : {
+				"app-plus":{
+					// 禁用原生导航栏
+					"titleNView": false
+				},
+				"navigationBarTitleText": "搜索预告片"
+			}
+		}
         ,{
             "path" : "pages/my/my",
             "style" : {}
         }
+		,{
+		    "path" : "pages/my/userInfo/userInfo",
+		    "style" : {
+				"navigationBarTitleText": "我的账号",
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#ffd655",
+				"backgroundColor": "#ffd655"
+			}
+		}
 		,{
 			"path" : "pages/movie/movie",
 			"style" : {
