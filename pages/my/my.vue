@@ -62,20 +62,29 @@
 		},
 		// 页面载入
 		onLoad() {
-			if(uni.getStorageSync('globalUser')){
-				// 获取登录的信息(本地Localstorege里)
+			this.loginInit()
+		},
+		// 页面显示
+		onShow(){
+			this.loginInit()
+		},
+		methods: {
+			// 页面初始化
+			loginInit(){
 				const userInfo = uni.getStorageSync('globalUser');
+				// console.log(userInfo)
 				
 				// 登录成功状态
 				if(userInfo){
 					this.info = userInfo;
 					// 登录成功状态
 					this.logins = true;
+				} else {
+					this.info = {};
+					// 登录失败状态
+					this.logins = false;
 				}
 			}
-		},
-		methods: {
-			
 		}
 	}
 </script>
