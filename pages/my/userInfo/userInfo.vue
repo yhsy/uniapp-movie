@@ -61,7 +61,10 @@
 							<view class="img-warp">
 								<view class="text">
 									<!-- 男 -->
-									{{info.sex===1 ? '男' : '女'}}
+									<!-- {{info.sex===1 ? '男' : '女'}} -->
+									<view v-if="info.sex===1">男</view>
+									<view v-else-if="info.sex===0">女</view>
+									<view v-else>请选择</view>
 								</view>
 								<view class="u-arrow">
 									<image src="../../../static/imgs/icons/left-gray-arrow.png" class="icon-arrow" mode=""></image>
@@ -87,8 +90,8 @@
 </template>
 
 <script>
+	import api from '../../../common/api.js'
 	export default {
-		
 		onLoad() {
 			if(uni.getStorageSync('globalUser')){
 				// 获取登录的信息(本地Localstorege里)
@@ -127,20 +130,79 @@
 			},
 			// 退出登录
 			loginOut(){
-				uni.showLoading()
-				// 清理登录信息缓存
-				uni.removeStorageSync('globalUser');
-				// 跳转到首页
-				// uni.switchTab({
-				// 	url: '../../index/index'
-				// })
-				// 跳转到登录页
-				uni.navigateTo({
-					url: '../../login/login'
+				/*
+					// 本地退出
+					// uni.showLoading()
+					// // 清理登录信息缓存
+					// uni.removeStorageSync('globalUser');
+					// // 跳转到首页
+					// // uni.switchTab({
+					// // 	url: '../../index/index'
+					// // })
+					// // 跳转到登录页
+					// uni.navigateTo({
+					// 	url: '../../login/login'
+					// })
+					// setTimeout(()=>{
+					// 	uni.hideLoading()
+					// },1000)
+					
+					
+				*/
+				
+				// 退出登录-服务端接口
+				const { serverUrl, qq } = api;
+				const { id } = this.info;
+				// 显示Loading
+				uni.showLoading({
+					// 开启透明遮罩
+					mask: true,
+					title: '请稍候…',
 				})
-				setTimeout(()=>{
-					uni.hideLoading()
-				},1000)
+				
+				// 显示导航栏加载Loading
+				uni.showNavigationBarLoading()
+				
+				uni.request({
+				    url: serverUrl + '/user/logout?userId='+ id+'&qq='+ qq,
+					method: 'POST',
+				    data: {
+						userId: id,
+						qq,
+				    },
+				    success: (res) => {
+						const resData = res.data;
+						// 判断数据是否获取成功
+						if(resData.status === 200) {
+							// 清理登录信息缓存
+							uni.removeStorageSync('globalUser');
+							
+							// 跳转到首页
+							uni.switchTab({
+								url: '../../index/index'
+							})
+							// 跳转到登录页
+							// uni.navigateTo({
+							// 	url: '../../login/login'
+							// })
+							
+						} else {
+							console.log(resData.msg)
+							// 退出登录失败
+							uni.showToast({
+								title: resData.msg,
+								duration: 2000
+							})
+						}
+						
+				    },
+					complete: () =>{
+						// 隐藏Loading
+						uni.hideLoading();
+						// 隐藏导航栏加载Loading
+						uni.hideNavigationBarLoading()
+					},
+				});
 			},
 			goEditInfo(type){
 				uni.navigateTo({
@@ -160,7 +222,8 @@
 						switch (tIndex){
 							// 查看我的头像
 							case 1:
-								console.log('查看我的头像')
+								// console.log('查看我的头像')
+								// 获取头像地址
 								const avatar = this.info.faceImage;
 								
 								uni.navigateTo({
@@ -171,6 +234,28 @@
 							// 上传头像
 							case 2:
 								console.log('上传头像')
+								uni.chooseImage({
+									sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+									sourceType: ['album'], //从相册选择
+								    success: (chooseImageRes) => {
+										// 上传图片的临时地址
+								        const tempFilePaths = chooseImageRes.tempFilePaths;
+										console.log(tempFilePaths)
+										console.log(tempFilePaths[0])
+								        // uni.uploadFile({
+								        //     url: 'https://www.example.com/upload', //仅为示例，非真实的接口地址
+								        //     filePath: tempFilePaths[0],
+								        //     name: 'file',
+								        //     formData: {
+								        //         'user': 'test'
+								        //     },
+								        //     success: (uploadFileRes) => {
+								        //         console.log(uploadFileRes.data);
+								        //     }
+								        // });
+								    }
+								});
+								
 								break;
 							default:
 								break;
