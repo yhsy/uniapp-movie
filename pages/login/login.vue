@@ -57,7 +57,7 @@
 			// 登录
 			loginForm(){
 				// console.log(res)
-				console.log(this.form)
+				// console.log(this.form)
 				const { username, password } = this.form;
 				// 显示Loading
 				uni.showLoading({
@@ -80,7 +80,7 @@
 						password
 				    },
 				    success: (res) => {
-						console.log(res.data);
+						// console.log(res.data);
 						// debugger;
 						const resData = res.data;
 						// 判断数据是否获取成功
