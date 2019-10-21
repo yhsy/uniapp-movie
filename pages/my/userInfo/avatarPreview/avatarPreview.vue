@@ -10,8 +10,15 @@
 <script>
 	export default {
 		onLoad(params){
-			const { avatar } = params;
-			this.avatar = avatar;
+			// 如果有带头像地址
+			if(params.avatar){
+				const { avatar } = params;
+				this.avatar = avatar;
+			} else {
+				uni.navigateTo({
+					url:'../userInfo'
+				})
+			}
 		},
 		data() {
 			return {
