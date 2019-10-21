@@ -21,7 +21,7 @@
 				</view>
 					
 				<view>
-					<view class="item-info">
+					<view class="item-info" @click="goEditInfo(1)">
 						<view class="tit">昵称</view>
 						<view>
 							<view class="img-warp">
@@ -38,7 +38,7 @@
 				</view>
 				
 				<view>
-					<view class="item-info">
+					<view class="item-info"  @click="goEditInfo(2)">
 						<view class="tit">生日</view>
 						<view>
 							<view class="img-warp">
@@ -55,7 +55,7 @@
 				</view>
 				
 				<view>
-					<view class="item-info">
+					<view class="item-info"  @click="goEditInfo(3)">
 						<view class="tit">性别</view>
 						<view>
 							<view class="img-warp">
@@ -141,6 +141,11 @@
 				setTimeout(()=>{
 					uni.hideLoading()
 				},1000)
+			},
+			goEditInfo(type){
+				uni.navigateTo({
+					url:'editUserInfo/editUserInfo?type=' + type
+				})
 			}
 		}
 	}
