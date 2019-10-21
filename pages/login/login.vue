@@ -1,6 +1,6 @@
 <template>
 	<view class="page-block">
-<!-- 		<view class="g-bd">
+		<!-- 		<view class="g-bd">
 			<view class="avatar">
 				<image src="../../static/imgs/icons/default-face.png" class="img-avatar"></image>
 			</view>
@@ -30,6 +30,48 @@
 				</view>
 			</view>
 		</form>
+		
+		<!-- 第三方登录 -->
+		<view class="g-third">
+			<view class="m-third">
+				<!-- #ifdef APP-PLUS || MP-WEIXIN -->
+					<view class="tit-wrap">
+						<view class="line"></view>
+						<view class="tit">
+							第三方登录
+						</view>
+						<view class="line"></view>
+					</view>
+				<!-- #endif -->
+				<!-- #ifdef APP-PLUS || MP-WEIXIN -->
+					<view class="m-tlogin">
+						<view>
+							<button open-type="getUserInfo" @getuserinfo="wbLogin" class="btn-wx">
+								<image src="../../static/imgs/icons/weibo.png" class="icon-third" mode="aspectFill"></image>
+							</button>
+						</view>
+						<view>
+							<button open-type="getUserInfo" @getuserinfo="wxLogin" class="btn-wx">
+								<image src="../../static/imgs/icons/weixin.png" class="icon-third" mode="aspectFill"></image>
+							</button>
+						</view>
+						<view>
+							<button open-type="getUserInfo" @getuserinfo="qqLogin" class="btn-wx">
+								<image src="../../static/imgs/icons/QQ.png" class="icon-third" mode="aspectFill"></image>
+							</button>
+						</view>
+					</view>
+				<!-- #endif -->
+				
+				<!-- #ifdef MP-WEIXIN -->
+					<!-- <view class="m-tlogin">
+						<button open-type="getUserInfo" @getuserinfo="wxLogin" class="btn-wx">
+							<image src="../../static/imgs/icons/weixin.png" class="icon-third" mode="aspectFill"></image>
+						</button>
+					</view> -->
+				<!-- #endif -->
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -109,6 +151,18 @@
 						uni.hideNavigationBarLoading()
 					}
 				});
+			},
+			// 微信登录
+			wxLogin(){
+				console.log('微信登录')
+			},
+			// 微博登录
+			wbLogin(){
+				console.log('微博登录')
+			},
+			// QQ登录
+			qqLogin(){
+				console.log('QQ登录')
 			}
 		}
 	}
