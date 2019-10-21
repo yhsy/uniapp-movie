@@ -93,6 +93,10 @@
 				"backgroundColor": "#ffd655"
 			}
         }
+        ,{
+            "path" : "pages/my/userInfo/avatarPreview/avatarPreview",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

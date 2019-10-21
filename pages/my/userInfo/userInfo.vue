@@ -4,7 +4,7 @@
 		<view class="g-hd">
 			<view class="m-hd">
 				<view>
-					<view class="item-info avatar-info">
+					<view class="item-info avatar-info" @click="avatarOption">
 						<view class="tit">头像</view>
 						<view>
 							<view class="img-warp">
@@ -145,6 +145,37 @@
 			goEditInfo(type){
 				uni.navigateTo({
 					url:'editUserInfo/editUserInfo?type=' + type
+				})
+			},
+			avatarOption(){
+				uni.showActionSheet({
+					// 菜单列表(最多6个)
+					itemList: ["查看我的头像","从手机相册选择",],
+					// 点击菜单事件
+					success:  (res) => {
+						// 获取菜单的索引
+						const tIndex = res.tapIndex + 1;
+						
+						// console.log('选中了第' + (tIndex + 1) + '个按钮');
+						switch (tIndex){
+							// 查看我的头像
+							case 1:
+								console.log('查看我的头像')
+								const avatar = this.info.faceImage;
+								
+								uni.navigateTo({
+									url: 'avatarPreview/avatarPreview?avatar=' + avatar
+								})
+								break;
+								
+							// 上传头像
+							case 2:
+								console.log('上传头像')
+								break;
+							default:
+								break;
+						}
+					},
 				})
 			}
 		}
