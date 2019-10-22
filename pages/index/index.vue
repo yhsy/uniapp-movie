@@ -239,8 +239,6 @@
 		onShow(){
 			if(this.videoContext){
 				this.videoContext.play();
-			} else {
-				this.videoContext.pause();
 			}
 		},
 		methods: {
