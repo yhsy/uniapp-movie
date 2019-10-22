@@ -242,17 +242,8 @@
 								        const tempFilePaths = chooseImageRes.tempFilePaths;
 										console.log(tempFilePaths)
 										console.log(tempFilePaths[0])
-								        // uni.uploadFile({
-								        //     url: 'https://www.example.com/upload', //仅为示例，非真实的接口地址
-								        //     filePath: tempFilePaths[0],
-								        //     name: 'file',
-								        //     formData: {
-								        //         'user': 'test'
-								        //     },
-								        //     success: (uploadFileRes) => {
-								        //         console.log(uploadFileRes.data);
-								        //     }
-								        // });
+										const imgTemp = tempFilePaths[0]
+										this.avatarUpload(imgTemp);	
 								    }
 								});
 								
@@ -262,6 +253,52 @@
 						}
 					},
 				})
+			},
+			// 直接上传头像
+			avatarUpload(imgTemp){
+				const { serverUrl, qq } = api;
+				const { id, userUniqueToken } = this.info;
+				
+				uni.showLoading({
+					mask: true,
+					title: "上传中，请稍后",
+				});
+				uni.uploadFile({
+				    url: serverUrl + "/user/uploadFace?userId=" + id+ "&qq="+ qq,
+				    filePath: imgTemp,
+				    name: 'file',
+					header:{
+						"headerUserId": id,
+						"headerUserToken": userUniqueToken
+					},
+				    success: (res) => {
+						const  resDataStr = res.data;
+						const resData = JSON.parse(resDataStr);
+						// 判断数据是否获取成功
+						if(resData.status === 200) {
+							// const userInfo = resData.data;
+							// 当前页面数据更新
+							// this.info = resData.data;
+							this.info.faceImage = resData.data.faceImage
+							// 存储修改头像后的数据
+							uni.setStorageSync("globalUser", resData.data);
+							uni.showToast({
+								title: '修改成功',
+								icon: 'success',
+								duration: 2000
+							})
+						} else {
+							uni.showToast({
+								title: resData.msg,
+								image: "../../../static/icos/error.png",
+								duration: 2000
+							})
+						}
+				    },
+					complete:() => {
+						uni.hideLoading()
+					}
+				});
 			}
 		}
 	}
