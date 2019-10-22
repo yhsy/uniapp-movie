@@ -106,6 +106,10 @@
             "path" : "pages/my/userInfo/avatarPreview/avatarPreview",
             "style" : {}
         }
+        ,{
+            "path" : "pages/my/userInfo/avatarUpload/avatarUpload",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
