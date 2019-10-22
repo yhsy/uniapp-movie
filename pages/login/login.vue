@@ -153,8 +153,101 @@
 				});
 			},
 			// 微信登录
-			wxLogin(){
+			wxLogin(e){
 				console.log('微信登录')
+				// 通过微信开放能力，获取用户基础信息
+				console.log(e)
+				const wxInfo = e.detail.userInfo;
+				console.log(wxInfo)
+				
+				// 实现微信登录
+				uni.login({
+					provider: "weixin",
+					success:(res) => {
+						// 获取微信登录Code:授权码(只能使用一次)
+						console.log(res)
+						const { code } = res;
+						const { avatarUrl, nickName } = wxInfo;
+						
+						// 请求微信登录接口(自己的服务端)
+						// 参数
+						// const payload = {
+						// 	// 微信登录授权码
+						// 	code,
+						// 	// 微信头像
+						// 	avatarUrl,
+						// 	// 昵称
+						// 	nickName,
+						// 	// 微信小程序用户对象
+						// 	// wxUserBo: {
+								
+						// 	// },
+						// 	// 使用哪个小程序(0-NEXT超英预告,1-超英预告,2-NEXT学院电影预告)
+						// 	whichMP: 1
+							
+						// }
+						
+						const { serverUrl, qq } = api;
+						// 显示Loading
+						uni.showLoading({
+							// 开启透明遮罩
+							mask: true,
+							title: '登录中,请稍候',
+						})
+						
+						// 显示导航栏加载Loading
+						uni.showNavigationBarLoading()
+						
+						uni.request({
+						    url: serverUrl + '/mpWXLogin/'+ code,
+							// url: serverUrl + '/mpWXLogin/'+code+'&qq='+ qq,
+							method: 'POST',
+							header: {
+								qq,
+							},
+						    data: {
+								qq,
+								// 微信头像
+								avatarUrl,
+								// 昵称
+								nickName,
+								whichMP: 1,
+						    },
+						    success: (res) => {
+								// 拿到用户微信登录的信息
+								console.log(res.data);
+								// debugger;
+								const resData = res.data;
+								// 判断数据是否获取成功
+								if(resData.status === 200) {
+									this.info = resData.data;
+									// 本地存储登录成功数据
+									uni.setStorageSync('globalUser',resData.data);
+									// 跳转到我的页面
+									uni.switchTab({
+										url:'../my/my'
+									})
+								} else {
+									console.log(resData.msg)
+									// 登录失败,提示信息
+									uni.showToast({
+										title: resData.msg,
+										duration: 2000
+									})
+								}
+								
+						    },
+							complete: () =>{
+								// 隐藏Loading
+								uni.hideLoading();
+								// 隐藏导航栏加载Loading
+								uni.hideNavigationBarLoading()
+							}
+						});
+						
+						
+					}
+				})
 			},
 			// 微博登录
 			wbLogin(){
