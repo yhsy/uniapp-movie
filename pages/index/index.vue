@@ -2,7 +2,8 @@
 	<view class="page">
 		<!-- 轮播图-start -->
 		<swiper class="banner" :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
-			<swiper-item v-for="(item,index) in bList" :key="index">
+			<swiper-item v-for="(item,index) in bList" :key="index" :data-trailerId="item.movieId"
+							@click="goMovieDetail">
 				<image :src="item.image" class="banner"></image>
 			</swiper-item>>
 		</swiper>
@@ -37,7 +38,8 @@
 					</view> 
 				-->
 				<view class="m-poster" v-for="(item,index) of hsList" :key="index">
-					<view class="poster-wapper">
+					<view class="poster-wapper" :data-trailerId="item.id"
+							@click="goMovieDetail">
 						<image :src="item.cover" class="poster-img" ></image>
 						<view class="movie-name">
 							{{item.name}}
@@ -129,11 +131,11 @@
 					</view>
 				</view>
 			-->
-			<view class="page-block m-love" v-for="(info, gIndex) of loveList" :key="info.id">
-				<view class="love-img">
+			<view class="page-block m-love" v-for="(info, gIndex) of loveList" :key="info.id"  :data-trailerId="info.id">
+				<view class="love-img" @click="goMovieDetail">
 					<image :src="info.poster" class="love-img"></image>
 				</view>
-				<view class="love-info">
+				<view class="love-info" @click="goMovieDetail">
 					<view class="info-wrap">
 						<view class="title">{{info.name}}</view>
 						<trailer-stars :innerScore="info.score" ></trailer-stars>
@@ -421,6 +423,16 @@
 						uni.createVideoContext(tempId).pause();
 					}
 				}
+			},
+			// 跳转到电影详情页
+			goMovieDetail(e){
+				// var gIndex = e.currentTarget.dataset.gindex;
+				const trailerId = e.currentTarget.dataset.trailerid;
+				// console.log(trailerId)
+				// 跳转页面
+				uni.navigateTo({
+					url: '../movie/movie?trailerId=' + trailerId
+				})
 			}
 		}
 	}

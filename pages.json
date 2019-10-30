@@ -28,8 +28,12 @@
 		,{
 			"path" : "pages/search/search",
 			"style" : {
-				"app-plus":{
-					// 禁用原生导航栏
+				// "app-plus":{
+				// 	// 禁用原生导航栏
+				// 	"titleNView": false
+				// },
+				// 如果 h5没有配置就会使用 app-plus的配置，有设置 则覆盖
+				"h5":{
 					"titleNView": false
 				},
 				"navigationBarTitleText": "搜索预告片"
