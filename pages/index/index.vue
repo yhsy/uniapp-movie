@@ -205,14 +205,38 @@
 			}
 		},
 		onLoad() {
-			// 获取banner列表
-			this.getBanner()
-			// 获取热门超英-列表
-			this.getHotSuperHero()
-			// 获取热门预告-列表
-			this.getHotTrailer()
-			// 获取猜你喜欢-列表
-			this.getMyLove()
+			uni.showLoading({
+				title:'载入中'
+			})
+			this.getQQ().then(res => {
+				const qq = res.ok;
+				// console.log(qq);
+				// 获取banner列表
+				this.getBanner(qq)
+				// 获取热门超英-列表
+				this.getHotSuperHero(qq)
+				// 获取热门预告-列表
+				this.getHotTrailer(qq)
+				// 获取猜你喜欢-列表
+				this.getMyLove(qq)
+				
+				uni.hideLoading();
+			}).catch(err => {
+				reject(err)
+				uni.hideLoading();
+				uni.showToast({
+					title: '接口错误,请重试',
+					duration:2000
+				})
+			})
+			// // 获取banner列表
+			// this.getBanner()
+			// // 获取热门超英-列表
+			// this.getHotSuperHero()
+			// // 获取热门预告-列表
+			// this.getHotTrailer()
+			// // 获取猜你喜欢-列表
+			// this.getMyLove()
 			
 			// uni-app的动画只支持APP和微信小程序
 			// #ifdef APP-PLUS || MP-WEIXIN
@@ -244,10 +268,60 @@
 			}
 		},
 		methods: {
-			// 获取banner列表-接口
-			getBanner(){
+			// 获取验证QQ
+			getQQ(){
 				// 通用性强(全端支持)
-				const { serverUrl, qq } = api;
+				const { serverUrl } = api;
+				
+				return new Promise((resolve, reject) => {
+					uni.request({
+					    url: serverUrl + '/sys/switches',
+						method: 'POST',
+					    success: (res) => {
+							resolve(res.data)
+							// console.log(res.data);
+							// debugger;
+							const resData = res.data;
+							// 判断数据是否获取成功
+							if(resData.status === 200) {
+								// 把qq存入本地
+								uni.setStorageSync({
+									qq: resData.ok
+								})
+							} else {
+								console.log(resData.msg)
+							}
+							
+					    }
+					});
+				})
+				
+				// uni.request({
+				//     url: serverUrl + '/sys/switches',
+				// 	method: 'POST',
+				//     success: (res) => {
+				// 		console.log(res.data);
+				// 		// debugger;
+				// 		const resData = res.data;
+				// 		// 判断数据是否获取成功
+				// 		if(resData.status === 200) {
+				// 			// this.bList = resData.data;
+				// 			this.leeqq = resData.msg;
+				// 			uni.setStorageSync({
+				// 				leeqq: resData.msg
+				// 			})
+				// 		} else {
+				// 			console.log(resData.msg)
+				// 		}
+						
+				//     }
+				// });
+			},
+			// 获取banner列表-接口
+			getBanner(qq){
+				// 通用性强(全端支持)
+				// const { serverUrl, qq } = api;
+				const { serverUrl } = api;
 				
 				// 通过main.js的prototype挂载实现(坑:Ios不支持)
 				// const { serverUrl, qq } = this;
@@ -276,8 +350,8 @@
 				});
 			},
 			// 获取热门超英-接口
-			getHotSuperHero(){
-				const { serverUrl, qq } = api;
+			getHotSuperHero(qq){
+				const { serverUrl } = api;
 				// 通过main.js的prototype挂载实现
 				// const { serverUrl, qq } = this;
 
@@ -304,8 +378,8 @@
 				});
 			},
 			// 获取热门预告-接口
-			getHotTrailer(){
-				const { serverUrl, qq } = api;
+			getHotTrailer(qq){
+				const { serverUrl } = api;
 
 				uni.request({
 				    url: serverUrl + '/index/movie/hot?type=trailer',
@@ -331,7 +405,7 @@
 				});
 			},
 			// 获取猜你喜欢-接口
-			getMyLove(){
+			getMyLove(qq){
 				// 显示Loading
 				uni.showLoading({
 					// 开启透明遮罩
@@ -342,7 +416,7 @@
 				// 显示导航栏加载Loading
 				uni.showNavigationBarLoading()
 				
-				const { serverUrl, qq } = api;
+				const { serverUrl } = api;
 				
 				uni.request({
 				    url: serverUrl + '/index/guessULike',
