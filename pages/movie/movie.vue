@@ -182,12 +182,37 @@
 			// console.log(trailerId);
 			this.trailerId = trailerId;
 			
-			// 获取影片详情
-			this.getTrailer();
-			// 获取导演列表
-			this.getStaff(1);
-			// 获取演员列表
-			this.getStaff(2);
+			let qq = "";
+			qq = uni.getStorageSync('qq');
+			
+			// 判断本地是否存在QQ
+			if(!qq){
+				this.getQQ().then(res => {
+					qq = res.ok;
+					
+					uni.setStorageSync('qq', qq)
+					
+					// 获取影片详情
+					this.getTrailer(qq);
+					// 获取导演列表
+					this.getStaff(1,qq);
+					// 获取演员列表
+					this.getStaff(2,qq);
+					
+					uni.hideLoading();
+				}).catch(err => {
+					uni.hideLoading();
+					reject(err)
+				})
+			} else {
+				// 获取影片详情
+				this.getTrailer(qq);
+				// 获取导演列表
+				this.getStaff(1,qq);
+				// 获取演员列表
+				this.getStaff(2,qq);
+				uni.hideLoading();
+			}
 			
 			// 通过Api设置导航栏的属性
 			uni.setNavigationBarColor({
@@ -270,8 +295,37 @@
 			}
 		},
 		methods: {
+			// 获取验证QQ
+			getQQ(){
+				// 通用性强(全端支持)
+				const { serverUrl } = api;
+				
+				return new Promise((resolve, reject) => {
+					uni.request({
+					    url: serverUrl + '/sys/switches',
+						method: 'POST',
+					    success: (res) => {
+							// console.log(res.data);
+							// debugger;
+							const resData = res.data;
+							// 判断数据是否获取成功
+							if(resData.status === 200) {
+								resolve(res.data)
+							} else {
+								uni.hideLoading();
+								uni.showToast({
+									title: '接口错误,请重试',
+									duration:2000
+								})
+								reject()
+							}
+							
+					    }
+					});
+				})
+			},
 			// 获取影片详情
-			getTrailer(){
+			getTrailer(qq){
 				// 显示Loading
 				uni.showLoading({
 					// 开启透明遮罩
@@ -282,7 +336,7 @@
 				// 显示导航栏加载Loading
 				uni.showNavigationBarLoading()
 				
-				const { serverUrl, qq } = api;
+				const { serverUrl } = api;
 				const { trailerId } = this;
 				
 				uni.request({
@@ -318,9 +372,9 @@
 				});
 			},
 			// 获取演职人员列表
-			getStaff(type){
+			getStaff(type,qq){
 				
-				const { serverUrl, qq } = api;
+				const { serverUrl } = api;
 				const { trailerId } = this;
 				
 				uni.request({
