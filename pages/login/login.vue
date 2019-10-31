@@ -87,7 +87,56 @@
 				info: {}
 			};
 		},
+		onLoad() {
+			uni.showLoading({
+				title:'载入中'
+			})
+			let qq = "";
+			qq = uni.getStorageSync('qq');
+			
+			if(!qq) {
+				this.getQQ().then(res => {
+					qq = res.ok;
+					
+					uni.setStorageSync('qq', qq)
+					
+					uni.hideLoading();
+				}).catch(err => {
+					reject(err)
+				})
+			}
+			uni.hideLoading();
+		},
 		methods:{
+			// 获取验证QQ
+			getQQ(){
+				// 通用性强(全端支持)
+				const { serverUrl } = api;
+				
+				return new Promise((resolve, reject) => {
+					uni.request({
+					    url: serverUrl + '/sys/switches',
+						method: 'POST',
+					    success: (res) => {
+							// console.log(res.data);
+							// debugger;
+							const resData = res.data;
+							// 判断数据是否获取成功
+							if(resData.status === 200) {
+								resolve(res.data)
+							} else {
+								uni.hideLoading();
+								uni.showToast({
+									title: '接口错误,请重试',
+									duration:2000
+								})
+								reject()
+							}
+							
+					    }
+					});
+				})
+			},
 			// 监听输入账号
 			changeUserName(e){
 				this.form.username =  e.target.value;
@@ -101,6 +150,7 @@
 				// console.log(res)
 				// console.log(this.form)
 				const { username, password } = this.form;
+				
 				// 显示Loading
 				uni.showLoading({
 					// 开启透明遮罩
@@ -111,7 +161,8 @@
 				// 显示导航栏加载Loading
 				uni.showNavigationBarLoading()
 				
-				const { serverUrl, qq } = api;
+				const { serverUrl } = api;
+				const qq = uni.getStorageSync('qq');
 				
 				uni.request({
 				    url: serverUrl + '/user/registOrLogin?qq='+ qq,
@@ -187,7 +238,9 @@
 							
 						// }
 						
-						const { serverUrl, qq } = api;
+						const { serverUrl } = api;
+						const qq = uni.getStorageSync('qq');
+						
 						// 显示Loading
 						uni.showLoading({
 							// 开启透明遮罩
