@@ -60,7 +60,27 @@
 			}
 		},
 		onLoad(){
-			this.getSearchList(1)
+			uni.showLoading({
+				title:'载入中'
+			})
+			let qq = "";
+			qq = uni.getStorageSync('qq');
+			if(qq){
+				this.getSearchList(1,qq)
+			} else {
+				this.getQQ().then(res => {
+					qq = res.ok;
+					
+					uni.setStorageSync('qq', qq)
+					
+					this.getSearchList(1,qq)
+					uni.hideLoading();
+				}).catch(err => {
+					reject(err)
+				})
+			}
+			// console.log(qq)
+			// this.getSearchList(1)
 		},
 		// 页面上拉(上拉加载)-生命周期
 		onReachBottom(){
@@ -75,19 +95,6 @@
 			// console.log(page,pageTotal)
 			// 大于当前页数,不分页
 			if(page >= pageTotal) {
-				// uni.showModal({
-				//     title: '没有更多数据了',
-				//     // content: '这是一个模态弹窗',
-				// 	// 是否显示取消按钮
-				// 	showCancel: false,
-				//     success: function (res) {
-				//         if (res.confirm) {
-				//             console.log('用户点击确定');
-				//         } else if (res.cancel) {
-				//             console.log('用户点击取消');
-				//         }
-				//     }
-				// });
 				uni.showToast({
 					title: '没有更多数据了',
 					icon: 'none',
@@ -97,11 +104,41 @@
 			}
 			const pages = this.query.page + 1;
 			this.query.page = pages;
-			this.getSearchList(pages)
+			const qq =  uni.getStorageSync('qq')
+			this.getSearchList(pages, qq)
 		},
 		methods: {
+			// 获取验证QQ
+			getQQ(){
+				// 通用性强(全端支持)
+				const { serverUrl } = api;
+				
+				return new Promise((resolve, reject) => {
+					uni.request({
+					    url: serverUrl + '/sys/switches',
+						method: 'POST',
+					    success: (res) => {
+							// console.log(res.data);
+							// debugger;
+							const resData = res.data;
+							// 判断数据是否获取成功
+							if(resData.status === 200) {
+								resolve(res.data)
+							} else {
+								uni.hideLoading();
+								uni.showToast({
+									title: '接口错误,请重试',
+									duration:2000
+								})
+								reject()
+							}
+							
+					    }
+					});
+				})
+			},
 			// 搜索列表
-			getSearchList(page){
+			getSearchList(page,qq){
 				// 显示Loading
 				uni.showLoading({
 					// 开启透明遮罩
@@ -112,7 +149,7 @@
 				// 显示导航栏加载Loading
 				uni.showNavigationBarLoading()
 				// 通用性强(全端支持)
-				const { serverUrl, qq } = api;
+				const { serverUrl } = api;
 				// 获取查询参数
 				const { keywords, pageSize } = this.query;
 				uni.request({
@@ -164,7 +201,8 @@
 				this.query.page = 1;
 				this.query.pageSize = 15;
 				this.sList = [];
-				this.getSearchList(1)
+				const qq =  uni.getStorageSync('qq')
+				this.getSearchList(1,qq)
 			},
 			// 跳转到电影详情页
 			goMovieDetail(e){
