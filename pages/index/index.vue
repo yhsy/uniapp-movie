@@ -210,6 +210,8 @@
 			})
 			this.getQQ().then(res => {
 				const qq = res.ok;
+				
+				uni.setStorageSync('qq', qq)
 				// console.log(qq);
 				// 获取banner列表
 				this.getBanner(qq)
@@ -223,11 +225,6 @@
 				uni.hideLoading();
 			}).catch(err => {
 				reject(err)
-				uni.hideLoading();
-				uni.showToast({
-					title: '接口错误,请重试',
-					duration:2000
-				})
 			})
 			// // 获取banner列表
 			// this.getBanner()
@@ -278,44 +275,24 @@
 					    url: serverUrl + '/sys/switches',
 						method: 'POST',
 					    success: (res) => {
-							resolve(res.data)
 							// console.log(res.data);
 							// debugger;
 							const resData = res.data;
 							// 判断数据是否获取成功
 							if(resData.status === 200) {
-								// 把qq存入本地
-								uni.setStorageSync({
-									qq: resData.ok
-								})
+								resolve(res.data)
 							} else {
-								console.log(resData.msg)
+								uni.hideLoading();
+								uni.showToast({
+									title: '接口错误,请重试',
+									duration:2000
+								})
+								reject()
 							}
 							
 					    }
 					});
 				})
-				
-				// uni.request({
-				//     url: serverUrl + '/sys/switches',
-				// 	method: 'POST',
-				//     success: (res) => {
-				// 		console.log(res.data);
-				// 		// debugger;
-				// 		const resData = res.data;
-				// 		// 判断数据是否获取成功
-				// 		if(resData.status === 200) {
-				// 			// this.bList = resData.data;
-				// 			this.leeqq = resData.msg;
-				// 			uni.setStorageSync({
-				// 				leeqq: resData.msg
-				// 			})
-				// 		} else {
-				// 			console.log(resData.msg)
-				// 		}
-						
-				//     }
-				// });
 			},
 			// 获取banner列表-接口
 			getBanner(qq){
